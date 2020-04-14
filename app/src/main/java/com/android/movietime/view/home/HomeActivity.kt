@@ -18,10 +18,6 @@ class HomeActivity : BaseActivity() {
         viewModel.getDiscoverMovie(DiscoverMovieRequest(getString(R.string.api_key), 1, 28))
 
         viewModel.getGenreMovie(DiscoverMovieRequest(getString(R.string.api_key)))
-
-        viewModel.getDetailMovie(DiscoverMovieRequest(getString(R.string.api_key), movieId = 80))
-
-        viewModel.getReviewMovie(DiscoverMovieRequest(getString(R.string.api_key), movieId = 80, page = 1))
     }
 
     override fun observeData() {
@@ -35,18 +31,6 @@ class HomeActivity : BaseActivity() {
         viewModel.genreMovie.observe(this, Observer {
             parseObserveData(it, resultSuccess = { result, _ ->
                 toast("Get genre")
-            })
-        })
-
-        viewModel.detailMovie.observe(this, Observer {
-            parseObserveData(it, resultSuccess = { result, _ ->
-                toast("Get Detail")
-            })
-        })
-
-        viewModel.reviewMovie.observe(this, Observer {
-            parseObserveData(it, resultSuccess = { result, _ ->
-                toast("Get Review")
             })
         })
     }
