@@ -1,9 +1,10 @@
-package com.android.movietime
+package com.android.movietime.view.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.android.movietime.R
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
