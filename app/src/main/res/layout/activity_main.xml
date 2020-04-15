@@ -54,16 +54,42 @@
             app:layout_constraintStart_toStartOf="@+id/tvGenreTitle"
             app:layout_constraintTop_toBottomOf="@+id/tvGenreTitle" />
 
-        <com.android.movietime.base.BaseRecyclerView
-            android:id="@+id/rvMain"
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedHome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical"
+            android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider"
-            tools:listitem="@layout/layout_item_video" />
+            app:layout_constraintTop_toBottomOf="@+id/divider">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sectionList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.android.movietime.base.BaseRecyclerView
+                    android:id="@+id/rvMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="80dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/layout_item_video" />
+
+                <View
+                    android:id="@+id/dividerMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="50dp"
+                    android:padding="30dp"
+                    app:layout_constraintEnd_toEndOf="@+id/rvMain"
+                    app:layout_constraintStart_toStartOf="@+id/rvMain"
+                    app:layout_constraintTop_toBottomOf="@+id/rvMain" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -269,15 +269,6 @@
                         app:layout_constraintStart_toStartOf="@+id/tvDescription"
                         app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
 
-                    <com.android.movietime.base.BaseRecyclerView
-                        android:id="@+id/rvTrailer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:visibility="gone"
-                        app:layout_constraintStart_toStartOf="@+id/tvTitleTrailer"
-                        app:layout_constraintTop_toBottomOf="@+id/tvTitleTrailer" />
-
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cvTrailer"
                         android:layout_width="match_parent"

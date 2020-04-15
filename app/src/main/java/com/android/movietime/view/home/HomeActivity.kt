@@ -1,8 +1,8 @@
 package com.android.movietime.view.home
 
 import android.os.Bundle
-import android.util.Log.d
 import android.view.View
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.Observer
 import com.android.movietime.R
 import com.android.movietime.base.BaseActivity
@@ -10,7 +10,6 @@ import com.android.movietime.base.BaseRecyclerView
 import com.android.movietime.data.entity.DiscoverMovieList
 import com.android.movietime.data.entity.DiscoverMovieRequest
 import com.android.movietime.data.entity.GenreList
-import com.android.movietime.extention.getDrawableCompat
 import com.android.movietime.view.detail.DetailMovieActivity
 import com.android.movietime.view.detail.DetailMovieActivity.Companion.MOVIE_ID
 import com.android.movietime.view.home.adapter.GenreAdapter
@@ -20,10 +19,7 @@ import com.android.movietime.view.home.adapter.HomeViewHolder
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.sectionEmptyState
 import kotlinx.android.synthetic.main.layout_empty_state.*
-import kotlinx.android.synthetic.main.layout_item_genre.*
 import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.textColor
-import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
@@ -38,6 +34,9 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
     private val adapterGenre by lazy { GenreAdapter(resultGenre, this) }
 
     private var position = 0
+    private var currentPage = 1
+    private var totalPage = 0
+    private var isLoading = false
 
     override fun getLayoutResId(): Int = R.layout.activity_main
 
@@ -48,6 +47,7 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
 
     override fun initEvent() {
         super.initEvent()
+        setScrollListener()
         onClickEmptyState()
     }
 
@@ -59,6 +59,19 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         with(rvGenre) {
             initRecyclerView(adapterGenre, BaseRecyclerView.LayoutManager.HORIZONTAL)
         }
+    }
+
+    private fun setScrollListener() {
+        nestedHome.setOnScrollChangeListener(
+            NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
+                if (v.getChildAt(v.childCount - 1) != null && currentPage < totalPage && !isLoading) {
+                    if ((scrollY >= (v.getChildAt(v.childCount - 1).measuredHeight - v.measuredHeight)) &&
+                        scrollY > oldScrollY
+                    ) {
+                        loadingData(currentPage)
+                    }
+                }
+            })
     }
 
     private fun setVisibilityContent(visible: Boolean) {
@@ -88,9 +101,10 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
     }
 
     private fun addData(data: List<DiscoverMovieList>) {
-        resultList.clear()
+        val positionStart = resultList.size + 1
+        val itemCount = data.size
         resultList.addAll(data)
-        adapterVideo.notifyDataSetChanged()
+        adapterVideo.notifyItemRangeInserted(positionStart, itemCount)
     }
 
     private fun addDataGenre(data: List<GenreList>) {
@@ -119,6 +133,10 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         )
     }
 
+    private fun loadingData(page: Int) {
+        viewModel.getDiscoverMovie(DiscoverMovieRequest(getString(R.string.api_key), page))
+    }
+
     override fun setBackgroundContent(items: GenreList, position: Int) {
         this.position = position
         tvGenreTitle.text = resultGenre[position].name
@@ -127,17 +145,19 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
 
     override fun loadingData(isFromSwipe: Boolean) {
         super.loadingData(isFromSwipe)
-        viewModel.getDiscoverMovie(DiscoverMovieRequest(getString(R.string.api_key), 1))
-
+        loadingData(1)
         viewModel.getGenreMovie(DiscoverMovieRequest(getString(R.string.api_key)))
     }
 
     override fun observeData() {
         super.observeData()
         viewModel.discoverMovie.observe(this, Observer {
-            parseObserveData(it, resultSuccess = { result, _ ->
+            parseObserveData(it, resultSuccess = { result, pagination ->
                 setEmptyStateContent(false)
                 addData(result.list)
+                result.page = currentPage
+                currentPage++
+                totalPage = result.totalPages
             })
         })
 
@@ -149,10 +169,12 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
     }
 
     override fun startLoading() {
+        isLoading = true
         setVisibilityContent(false)
     }
 
     override fun stopLoading() {
+        isLoading = false
         setVisibilityContent(true)
     }
 

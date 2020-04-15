@@ -12,7 +12,10 @@ class HomeViewHolder(view: View, private val listener: SetOnClickVideo) :
 
     fun bind(items: DiscoverMovieList) {
         with(itemView) {
-            val image = "https://image.tmdb.org/t/p/w500" + items.posterPath
+            val image = when (items.backdropPath) {
+                null -> ""
+                else -> "https://image.tmdb.org/t/p/w500" + items.posterPath
+            }
             ivThumbnailMovie.loadFromUrlWithPlaceholder(
                 image,
                 R.drawable.ic_launcher_background,

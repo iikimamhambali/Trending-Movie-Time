@@ -19,7 +19,6 @@ class GenreViewHolder(view: View, private val listener: SetOnClickGenre) :
                 listener.onClickGenre(items)
                 listener.setBackgroundContent(items, adapterPosition)
             }
-            setupBackgroundContent(items)
         }
     }
 

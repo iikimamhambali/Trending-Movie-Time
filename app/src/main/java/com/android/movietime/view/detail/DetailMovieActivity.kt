@@ -15,8 +15,6 @@ import com.android.movietime.data.entity.ReviewList
 import com.android.movietime.data.entity.TrailerList
 import com.android.movietime.extention.getColorCompat
 import com.android.movietime.extention.loadFromUrlWithPlaceholder
-import com.android.movietime.view.detail.adapter.TrailerAdapter
-import com.android.movietime.view.detail.adapter.TrailerViewHolder
 import com.android.movietime.view.home.HomeViewModel
 import com.android.movietime.view.home.adapter.ReviewAdapter
 import kotlinx.android.synthetic.main.activity_detail_movie.*
@@ -26,12 +24,9 @@ import kotlinx.android.synthetic.main.layout_toolbar_default.*
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer {
+class DetailMovieActivity : BaseActivity() {
 
     private val viewModel by viewModel<HomeViewModel>()
-
-    private var resultList = mutableListOf<TrailerList>()
-    private val adapterTrailer by lazy { TrailerAdapter(resultList, this) }
 
     private var resultReview = mutableListOf<ReviewList>()
     private val adapterReview by lazy { ReviewAdapter(resultReview) }
@@ -107,7 +102,10 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
     }
 
     private fun setupContent(data: DetailMovieResult) {
-        val image = "https://image.tmdb.org/t/p/w780/" + data.backdropPath
+        val image = when (data.backdropPath) {
+            null -> ""
+            else -> "https://image.tmdb.org/t/p/w780/" + data.backdropPath
+        }
 
         ivMoviePoster.loadFromUrlWithPlaceholder(
             image,
@@ -121,14 +119,16 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
         tvTitle.text = data.title
         tvDescription.text = data.overview
 
-        setupTrailer(data.videos.list[0])
+        when (data.videos.list.isNotEmpty()) {
+            true -> setupTrailer(data.videos.list[0])
+            else -> {
+                tvTitleTrailer.visibility = View.GONE
+                cvTrailer.visibility = View.GONE
+            }
+        }
     }
 
     private fun setupRecyclerView() {
-        with(rvTrailer) {
-            initRecyclerView(adapterTrailer, BaseRecyclerView.LayoutManager.VERTICAL)
-        }
-
         with(rvReview) {
             initRecyclerView(adapterReview, BaseRecyclerView.LayoutManager.VERTICAL)
         }
@@ -170,10 +170,6 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
         resultReview.clear()
         resultReview.addAll(data)
         adapterReview.notifyDataSetChanged()
-    }
-
-    override fun onClickTrailer(items: TrailerList) {
-
     }
 
     override fun loadingData(isFromSwipe: Boolean) {
