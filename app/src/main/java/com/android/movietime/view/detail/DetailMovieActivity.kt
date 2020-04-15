@@ -20,6 +20,8 @@ import com.android.movietime.view.detail.adapter.TrailerViewHolder
 import com.android.movietime.view.home.HomeViewModel
 import com.android.movietime.view.home.adapter.ReviewAdapter
 import kotlinx.android.synthetic.main.activity_detail_movie.*
+import kotlinx.android.synthetic.main.activity_detail_movie.sectionEmptyState
+import kotlinx.android.synthetic.main.layout_empty_state.*
 import kotlinx.android.synthetic.main.layout_toolbar_default.*
 import org.jetbrains.anko.toast
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -54,6 +56,7 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
     override fun initEvent() {
         super.initEvent()
         setOnClickToolbar()
+        onClickEmptyState()
     }
 
     private fun getIntentData() {
@@ -70,6 +73,13 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
         ivToolbarBack.setOnClickListener { finish() }
     }
 
+    private fun onClickEmptyState() {
+        btnReload.setOnClickListener {
+            sectionEmptyState.visibility = View.GONE
+            loadingData()
+        }
+    }
+
     private fun setVisibilityContent(visible: Boolean) {
         when (visible) {
             true -> {
@@ -79,6 +89,19 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
             else -> {
                 nested.visibility = View.GONE
                 progressView.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun setEmptyStateContent(visible: Boolean) {
+        when (visible) {
+            true -> {
+                nested.visibility = View.GONE
+                sectionEmptyState.visibility = View.VISIBLE
+            }
+            else -> {
+                sectionEmptyState.visibility = View.GONE
+                nested.visibility = View.VISIBLE
             }
         }
     }
@@ -170,19 +193,23 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
                 page = 1
             )
         )
-
     }
 
     override fun observeData() {
         super.observeData()
         viewModel.detailMovie.observe(this, Observer {
             parseObserveData(it, resultSuccess = { result, _ ->
+                setEmptyStateContent(false)
                 setupContent(result)
             })
         })
 
         viewModel.reviewMovie.observe(this, Observer {
             parseObserveData(it, resultSuccess = { result, _ ->
+                if (result.results.isEmpty()) {
+                    tvTitleReview.visibility = View.GONE
+                    return@parseObserveData
+                }
                 addDataReview(result.results)
             })
         })
@@ -194,5 +221,9 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
 
     override fun stopLoading() {
         setVisibilityContent(true)
+    }
+
+    override fun onInternetError() {
+        setEmptyStateContent(true)
     }
 }

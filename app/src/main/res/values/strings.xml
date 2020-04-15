@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Movie Time</string>
     <string name="link_youtube_image">"https://img.youtube.com/vi/%s/0.jpg"</string>
-    <string name="link_youtube_trailer">https://www.youtube.com/watch?%s</string>
+    <string name="link_youtube_trailer">https://www.youtube.com/watch?v=%s</string>
+    <string name="label_title_error_connection">Connection Error</string>
+    <string name="label_subtitle_error_connection">Please Check Your Connection Device</string>
+    <string name="label_try_again">Try Again</string>
 
 </resources>

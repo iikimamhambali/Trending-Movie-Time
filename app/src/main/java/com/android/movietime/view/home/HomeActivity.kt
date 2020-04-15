@@ -18,6 +18,8 @@ import com.android.movietime.view.home.adapter.GenreViewHolder
 import com.android.movietime.view.home.adapter.HomeAdapter
 import com.android.movietime.view.home.adapter.HomeViewHolder
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.sectionEmptyState
+import kotlinx.android.synthetic.main.layout_empty_state.*
 import kotlinx.android.synthetic.main.layout_item_genre.*
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.textColor
@@ -44,6 +46,11 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         setupReyclerView()
     }
 
+    override fun initEvent() {
+        super.initEvent()
+        onClickEmptyState()
+    }
+
     private fun setupReyclerView() {
         with(rvMain) {
             initRecyclerView(adapterVideo, BaseRecyclerView.LayoutManager.VERTICAL)
@@ -67,6 +74,19 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         }
     }
 
+    private fun setEmptyStateContent(visible: Boolean) {
+        when (visible) {
+            true -> {
+                sectionContent.visibility = View.GONE
+                sectionEmptyState.visibility = View.VISIBLE
+            }
+            else -> {
+                sectionEmptyState.visibility = View.GONE
+                sectionContent.visibility = View.VISIBLE
+            }
+        }
+    }
+
     private fun addData(data: List<DiscoverMovieList>) {
         resultList.clear()
         resultList.addAll(data)
@@ -77,6 +97,12 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         resultGenre.clear()
         resultGenre.addAll(data)
         adapterGenre.notifyDataSetChanged()
+    }
+
+    private fun onClickEmptyState() {
+        btnReload.setOnClickListener {
+            loadingData()
+        }
     }
 
     override fun onClickVideo(items: DiscoverMovieList) {
@@ -110,6 +136,7 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         super.observeData()
         viewModel.discoverMovie.observe(this, Observer {
             parseObserveData(it, resultSuccess = { result, _ ->
+                setEmptyStateContent(false)
                 addData(result.list)
             })
         })
@@ -127,5 +154,9 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
 
     override fun stopLoading() {
         setVisibilityContent(true)
+    }
+
+    override fun onInternetError() {
+        setEmptyStateContent(true)
     }
 }
