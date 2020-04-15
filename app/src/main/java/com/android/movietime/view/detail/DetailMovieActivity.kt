@@ -70,6 +70,19 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
         ivToolbarBack.setOnClickListener { finish() }
     }
 
+    private fun setVisibilityContent(visible: Boolean) {
+        when (visible) {
+            true -> {
+                progressView.visibility = View.GONE
+                nested.visibility = View.VISIBLE
+            }
+            else -> {
+                nested.visibility = View.GONE
+                progressView.visibility = View.VISIBLE
+            }
+        }
+    }
+
     private fun setupContent(data: DetailMovieResult) {
         val image = "https://image.tmdb.org/t/p/w780/" + data.backdropPath
 
@@ -173,5 +186,13 @@ class DetailMovieActivity : BaseActivity(), TrailerViewHolder.SetOnClickTrailer 
                 addDataReview(result.results)
             })
         })
+    }
+
+    override fun startLoading() {
+        setVisibilityContent(false)
+    }
+
+    override fun stopLoading() {
+        setVisibilityContent(true)
     }
 }

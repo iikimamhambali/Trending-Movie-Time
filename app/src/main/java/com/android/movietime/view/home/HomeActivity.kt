@@ -2,6 +2,7 @@ package com.android.movietime.view.home
 
 import android.os.Bundle
 import android.util.Log.d
+import android.view.View
 import androidx.lifecycle.Observer
 import com.android.movietime.R
 import com.android.movietime.base.BaseActivity
@@ -53,6 +54,19 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         }
     }
 
+    private fun setVisibilityContent(visible: Boolean) {
+        when (visible) {
+            true -> {
+                progressView.visibility = View.GONE
+                sectionContent.visibility = View.VISIBLE
+            }
+            else -> {
+                sectionContent.visibility = View.GONE
+                progressView.visibility = View.VISIBLE
+            }
+        }
+    }
+
     private fun addData(data: List<DiscoverMovieList>) {
         resultList.clear()
         resultList.addAll(data)
@@ -83,18 +97,6 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         this.position = position
         tvGenreTitle.text = resultGenre[position].name
         resultGenre[position].isCheck = true
-
-//        when {
-//            items.isCheck -> {
-//
-//                resultGenre[position].isCheck = true
-//                adapterGenre.notifyDataSetChanged()
-//            }
-//            else -> {
-//                resultGenre[position].isCheck = false
-//                adapterGenre.notifyDataSetChanged()
-//            }
-//        }
     }
 
     override fun loadingData(isFromSwipe: Boolean) {
@@ -119,4 +121,11 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         })
     }
 
+    override fun startLoading() {
+        setVisibilityContent(false)
+    }
+
+    override fun stopLoading() {
+        setVisibilityContent(true)
+    }
 }
