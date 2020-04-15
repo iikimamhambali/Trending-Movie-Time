@@ -29,6 +29,7 @@ data class DetailMovieResult(
     @SerializedName("tagline") val tagLine: String? = null,
     @SerializedName("title") val title: String? = null,
     @SerializedName("video") val video: Boolean = false,
-    @SerializedName("vote_average") val voteAverage: Double = 0.0,
+    @SerializedName("videos") val videos: VideoTrailer,
+    @SerializedName("vote_average") val voteAverage: Double,
     @SerializedName("vote_count") val voteCount: Int = 0
 ) : Parcelable

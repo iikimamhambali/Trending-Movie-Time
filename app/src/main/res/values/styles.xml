@@ -27,4 +27,9 @@
         <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     </style>
 
+    <style name="detailTheme" parent="AppTheme.NoActionBar.Full">
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+    </style>
+
 </resources>

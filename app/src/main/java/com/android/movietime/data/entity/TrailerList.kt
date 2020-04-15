@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class TrailerList(
-    @SerializedName("id") var id: Int,
+    @SerializedName("id") var id: String,
     @SerializedName("iso_639_1") var iso_639_1: String,
     @SerializedName("iso_3166_1") var iso_3166_1: String,
     @SerializedName("key") var key: String,

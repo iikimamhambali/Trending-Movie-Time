@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class GenreList(
     @SerializedName("id") var id: Int,
-    @SerializedName("name") var name: String
+    @SerializedName("name") var name: String,
+    var isCheck: Boolean = false
 ) : Parcelable

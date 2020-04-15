@@ -17,7 +17,7 @@ interface MovieService {
         @Query("api_key") key: String,
         @Query("language") language: String,
         @Query("page") page: Int,
-        @Query("with_genres") genres: Int = 0
+        @Query("with_genres") genres: String = ""
     ): LiveData<ApiResponse<DiscoverMovieResult>>
 
     @GET("genre/movie/list")

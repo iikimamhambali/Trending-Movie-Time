@@ -6,4 +6,327 @@
     android:layout_height="match_parent"
     tools:context=".view.detail.DetailMovieActivity">
 
+    <include
+        android:id="@+id/toolbarDetail"
+        layout="@layout/layout_toolbar_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarDetail">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivMoviePoster"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_launcher_foreground" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvInformation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="4dp"
+                android:translationY="-30dp"
+                app:cardCornerRadius="10dp"
+                app:cardElevation="2dp"
+                app:layout_constraintEnd_toEndOf="@+id/ivMoviePoster"
+                app:layout_constraintStart_toStartOf="@+id/ivMoviePoster"
+                app:layout_constraintTop_toBottomOf="@+id/ivMoviePoster">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sectionRating"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/dividerOne"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent=".3">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="TITLE"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTitleRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_horizontal"
+                            android:text="Rating"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="@+id/tvRating"
+                            app:layout_constraintStart_toStartOf="@+id/tvRating"
+                            app:layout_constraintTop_toBottomOf="@+id/tvRating" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/dividerOne"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhiteLine"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/sectionImdb"
+                        app:layout_constraintStart_toEndOf="@+id/sectionRating"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sectionImdb"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/dividerTwo"
+                        app:layout_constraintStart_toEndOf="@+id/dividerOne"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent=".3">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvImb"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="TITLE"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTitleImb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_horizontal"
+                            android:text="ImDb"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="@+id/tvImb"
+                            app:layout_constraintStart_toStartOf="@+id/tvImb"
+                            app:layout_constraintTop_toBottomOf="@+id/tvImb" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/dividerTwo"
+                        android:layout_width="2dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/colorWhiteLine"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/sectionVoteCount"
+                        app:layout_constraintStart_toEndOf="@+id/sectionImdb"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/sectionVoteCount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/dividerTwo"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent=".3">
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvCount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="TITLE" />
+
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:id="@+id/tvTitleCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:gravity="center_horizontal"
+                            android:text="Vote Count"
+                            android:textSize="10sp"
+                            app:layout_constraintEnd_toEndOf="@+id/tvCount"
+                            app:layout_constraintStart_toStartOf="@+id/tvCount"
+                            app:layout_constraintTop_toBottomOf="@+id/tvCount" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sectionBackground"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="@+id/cvInformation"
+                app:layout_constraintStart_toStartOf="@+id/cvInformation"
+                app:layout_constraintTop_toBottomOf="@+id/cvInformation">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/sectionContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="28sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Movie Title" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTitleDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Overview"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:textSize="12sp"
+                        app:layout_constraintStart_toStartOf="@+id/tvTitleDescription"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitleDescription"
+                        tools:text="Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTitleReview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Review"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/cvTrailer"
+                        app:layout_constraintTop_toBottomOf="@+id/cvTrailer" />
+
+                    <com.android.movietime.base.BaseRecyclerView
+                        android:id="@+id/rvReview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical"
+                        android:paddingBottom="50dp"
+                        app:layout_constraintEnd_toEndOf="@+id/tvTitleReview"
+                        app:layout_constraintStart_toStartOf="@+id/tvTitleReview"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitleReview" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tvTitleTrailer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Trailer"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/tvDescription"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+                    <com.android.movietime.base.BaseRecyclerView
+                        android:id="@+id/rvTrailer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        app:layout_constraintStart_toStartOf="@+id/tvTitleTrailer"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitleTrailer" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvTrailer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="2dp"
+                        android:layout_marginBottom="4dp"
+                        app:cardCornerRadius="10dp"
+                        app:cardElevation="4dp"
+                        app:layout_constraintStart_toStartOf="@+id/tvTitleTrailer"
+                        app:layout_constraintTop_toBottomOf="@+id/tvTitleTrailer">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/sectionContentTrailer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivTrailer"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:scaleType="centerCrop"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:srcCompat="@drawable/ic_launcher_foreground" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/ivPlayButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="200dp"
+                                android:background="@color/colorTransparent"
+                                android:padding="50dp"
+                                android:translationZ="30dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:srcCompat="@drawable/ic_play_arrow" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
