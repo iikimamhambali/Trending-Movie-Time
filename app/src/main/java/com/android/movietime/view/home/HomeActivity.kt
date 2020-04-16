@@ -10,6 +10,7 @@ import com.android.movietime.base.BaseRecyclerView
 import com.android.movietime.data.entity.DiscoverMovieList
 import com.android.movietime.data.entity.DiscoverMovieRequest
 import com.android.movietime.data.entity.GenreList
+import com.android.movietime.extention.getColorCompat
 import com.android.movietime.view.detail.DetailMovieActivity
 import com.android.movietime.view.detail.DetailMovieActivity.Companion.MOVIE_ID
 import com.android.movietime.view.home.adapter.GenreAdapter
@@ -49,6 +50,7 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         super.initEvent()
         setScrollListener()
         onClickEmptyState()
+        setupSwipeRefresh()
     }
 
     private fun setupReyclerView() {
@@ -58,6 +60,27 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
 
         with(rvGenre) {
             initRecyclerView(adapterGenre, BaseRecyclerView.LayoutManager.HORIZONTAL)
+        }
+    }
+
+    private fun setupSwipeRefresh() {
+        with(swipeRefreshHome) {
+            setOnRefreshListener {
+                resetData()
+                loadingData()
+            }
+            setColorSchemeColors(
+                context.getColorCompat(R.color.colorPrimary),
+                context.getColorCompat(R.color.colorPrimary),
+                context.getColorCompat(R.color.colorPrimary)
+            )
+            val typedValue = android.util.TypedValue()
+            context.theme?.resolveAttribute(R.attr.actionBarSize, typedValue, true)
+            setProgressViewOffset(
+                false,
+                0,
+                context.resources.getDimensionPixelSize(typedValue.resourceId)
+            )
         }
     }
 
@@ -107,6 +130,12 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
         adapterVideo.notifyItemRangeInserted(positionStart, itemCount)
     }
 
+    private fun resetData() {
+        currentPage = 1
+        resultList.clear()
+        adapterVideo.notifyDataSetChanged()
+    }
+
     private fun addDataGenre(data: List<GenreList>) {
         resultGenre.clear()
         resultGenre.addAll(data)
@@ -124,17 +153,18 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
     }
 
     override fun onClickGenre(items: GenreList) {
+        resetData()
+        loadingData(page = 1, genre = items.id.toString())
+    }
+
+    private fun loadingData(page: Int, genre: String = "") {
         viewModel.getDiscoverMovie(
             DiscoverMovieRequest(
                 getString(R.string.api_key),
-                page = 1,
-                genre = items.id.toString()
+                page = page,
+                genre = genre
             )
         )
-    }
-
-    private fun loadingData(page: Int) {
-        viewModel.getDiscoverMovie(DiscoverMovieRequest(getString(R.string.api_key), page))
     }
 
     override fun setBackgroundContent(items: GenreList, position: Int) {
@@ -176,6 +206,7 @@ class HomeActivity : BaseActivity(), HomeViewHolder.SetOnClickVideo,
     override fun stopLoading() {
         isLoading = false
         setVisibilityContent(true)
+        swipeRefreshHome.isRefreshing = false
     }
 
     override fun onInternetError() {
