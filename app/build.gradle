@@ -81,6 +81,12 @@ dependencies {
     implementation libraries.koinViewModel
     implementation libraries.multidex
     implementation libraries.glide
+    implementation libraries.youtubeExtractor
+    implementation libraries.exoPlayer
+    implementation libraries.exoPlayerCore
+    implementation libraries.exoPlayerDash
+    implementation libraries.exoPlayerHls
+    implementation libraries.exoPlayerUI
 
     implementation supportDependencies.appCompat
     implementation supportDependencies.coreKtx
@@ -95,6 +101,8 @@ dependencies {
     api archLifecycle.archExtensions
     api archLifecycle.archViewModel
 
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation testLibraries.junit
 
     androidTestImplementation(testSupportDependencies.espressoCore, {

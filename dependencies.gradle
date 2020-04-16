@@ -19,55 +19,63 @@ ext {
     rxBindingVersion = '2.0.0'
     leakCanaryVersion = '1.5.4'
     archVersion = '2.0.0'
+    youtubeExtractor = 'master-SNAPSHOT'
+    exoPlayer = '2.8.4'
 
     supportDependencies = [
-            coreKtx         : 'androidx.core:core-ktx:1.1.0',
-            support         : "com.android.support:support-v4:${supportLibraryVersion}",
-            appCompat       : "com.android.support:appcompat-v7:${supportLibraryVersion}",
-            design          : "com.android.support:design:${supportLibraryVersion}",
-            appCompatX      : "androidx.appcompat:appcompat:${androidX}",
-            recyclerView    : "com.android.support:recyclerview-v7:${supportLibraryVersion}",
-            cardView        : "com.android.support:cardview-v7:${supportLibraryVersion}",
-            constrainLayout : "androidx.constraintlayout:constraintlayout:${constrainLayoutVersion}",
-            customTab       : "com.android.support:customtabs:${supportLibraryVersion}"
+            coreKtx        : 'androidx.core:core-ktx:1.1.0',
+            support        : "com.android.support:support-v4:${supportLibraryVersion}",
+            appCompat      : "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            design         : "com.android.support:design:${supportLibraryVersion}",
+            appCompatX     : "androidx.appcompat:appcompat:${androidX}",
+            recyclerView   : "com.android.support:recyclerview-v7:${supportLibraryVersion}",
+            cardView       : "com.android.support:cardview-v7:${supportLibraryVersion}",
+            constrainLayout: "androidx.constraintlayout:constraintlayout:${constrainLayoutVersion}",
+            customTab      : "com.android.support:customtabs:${supportLibraryVersion}"
     ]
 
     archLifecycle = [
-            archViewModel                : "androidx.lifecycle:lifecycle-viewmodel:$archVersion",
-            archLiveData                 : "android.arch.lifecycle:livedata:$archVersion",
-            archExtensions               : "androidx.lifecycle:lifecycle-extensions:$archVersion",
-            archReactiveStream           : "android.arch.lifecycle:reactivestreams:$archVersion",
-            archCompiler                 : "androidx.lifecycle:lifecycle-compiler:$archVersion"
+            archViewModel     : "androidx.lifecycle:lifecycle-viewmodel:$archVersion",
+            archLiveData      : "android.arch.lifecycle:livedata:$archVersion",
+            archExtensions    : "androidx.lifecycle:lifecycle-extensions:$archVersion",
+            archReactiveStream: "android.arch.lifecycle:reactivestreams:$archVersion",
+            archCompiler      : "androidx.lifecycle:lifecycle-compiler:$archVersion"
     ]
 
     libraries = [
-            okHttp3                  : "com.squareup.okhttp3:okhttp:${okHttp3Version}",
-            okhttp3Logging           : "com.squareup.okhttp3:logging-interceptor:${okHttp3Version}",
-            okhttp3UrlConnection     : "com.squareup.okhttp3:okhttp-urlconnection:${okHttp3Version}",
-            rxJava2                  : "io.reactivex.rxjava2:rxjava:${rxJava2Version}",
-            rxAndroid2               : "io.reactivex.rxjava2:rxandroid:${rxAndroid2Version}",
-            retrofit                 : "com.squareup.retrofit2:retrofit:${retrofit2Version}",
-            retrofitGson             : "com.squareup.retrofit2:converter-gson:${retrofit2Version}",
-            retrofitRx2Adapter       : "com.squareup.retrofit2:adapter-rxjava2:${retrofitRx2AdapterVersion}",
-            glide                    : "com.github.bumptech.glide:glide:${glideVersion}",
-            glideAnnotation          : "com.github.bumptech.glide:annotations:${glideVersion}",
-            glideAnnotationProc      : "com.github.bumptech.glide:compiler:${glideVersion}",
-            glideOkHttp3             : "com.github.bumptech.glide:okhttp3-integration:${glideOkHttpVersion}@aar",
-            koinCore                 : "org.koin:koin-core:${koinVersion}",
-            koinAndroid              : "org.koin:koin-android:${koinVersion}",
-            koinScope                : "org.koin:koin-android-scope:${koinVersion}",
-            koinViewModel            : "org.koin:koin-android-viewmodel:${koinVersion}",
-            gson                     : "com.google.code.gson:gson:${gsonVersion}",
-            kotlinJre7               : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}",
-            anko                     : "org.jetbrains.anko:anko:${ankoVersion}",
-            ankoCommon               : "org.jetbrains.anko:anko-commons:${ankoVersion}",
-            multidex                 : 'androidx.multidex:multidex:2.0.0',
-            rxBindingPlatform        : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
-            rxBindingAppCompat       : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBindingVersion}",
-            rxBindingSupport         : "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxBindingVersion}",
-            rxBindingPlatformKotlin  : "com.jakewharton.rxbinding2:rxbinding-kotlin:${rxBindingVersion}",
-            rxBindingAppCompatKotlin : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:${rxBindingVersion}",
-            rxBindingSupportKotlin   : "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:${rxBindingVersion}"
+            okHttp3                 : "com.squareup.okhttp3:okhttp:${okHttp3Version}",
+            okhttp3Logging          : "com.squareup.okhttp3:logging-interceptor:${okHttp3Version}",
+            okhttp3UrlConnection    : "com.squareup.okhttp3:okhttp-urlconnection:${okHttp3Version}",
+            rxJava2                 : "io.reactivex.rxjava2:rxjava:${rxJava2Version}",
+            rxAndroid2              : "io.reactivex.rxjava2:rxandroid:${rxAndroid2Version}",
+            retrofit                : "com.squareup.retrofit2:retrofit:${retrofit2Version}",
+            retrofitGson            : "com.squareup.retrofit2:converter-gson:${retrofit2Version}",
+            retrofitRx2Adapter      : "com.squareup.retrofit2:adapter-rxjava2:${retrofitRx2AdapterVersion}",
+            glide                   : "com.github.bumptech.glide:glide:${glideVersion}",
+            glideAnnotation         : "com.github.bumptech.glide:annotations:${glideVersion}",
+            glideAnnotationProc     : "com.github.bumptech.glide:compiler:${glideVersion}",
+            glideOkHttp3            : "com.github.bumptech.glide:okhttp3-integration:${glideOkHttpVersion}@aar",
+            koinCore                : "org.koin:koin-core:${koinVersion}",
+            koinAndroid             : "org.koin:koin-android:${koinVersion}",
+            koinScope               : "org.koin:koin-android-scope:${koinVersion}",
+            koinViewModel           : "org.koin:koin-android-viewmodel:${koinVersion}",
+            gson                    : "com.google.code.gson:gson:${gsonVersion}",
+            kotlinJre7              : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${kotlinVersion}",
+            anko                    : "org.jetbrains.anko:anko:${ankoVersion}",
+            ankoCommon              : "org.jetbrains.anko:anko-commons:${ankoVersion}",
+            multidex                : 'androidx.multidex:multidex:2.0.0',
+            rxBindingPlatform       : "com.jakewharton.rxbinding2:rxbinding:${rxBindingVersion}",
+            rxBindingAppCompat      : "com.jakewharton.rxbinding2:rxbinding-appcompat-v7:${rxBindingVersion}",
+            rxBindingSupport        : "com.jakewharton.rxbinding2:rxbinding-support-v4:${rxBindingVersion}",
+            rxBindingPlatformKotlin : "com.jakewharton.rxbinding2:rxbinding-kotlin:${rxBindingVersion}",
+            rxBindingAppCompatKotlin: "com.jakewharton.rxbinding2:rxbinding-appcompat-v7-kotlin:${rxBindingVersion}",
+            rxBindingSupportKotlin  : "com.jakewharton.rxbinding2:rxbinding-support-v4-kotlin:${rxBindingVersion}",
+            youtubeExtractor        : "com.github.HaarigerHarald:android-youtubeExtractor:${youtubeExtractor}",
+            exoPlayer               : "com.google.android.exoplayer:exoplayer:${exoPlayer}",
+            exoPlayerCore           : "com.google.android.exoplayer:exoplayer-core:${exoPlayer}",
+            exoPlayerDash           : "com.google.android.exoplayer:exoplayer-dash:${exoPlayer}",
+            exoPlayerHls            : "com.google.android.exoplayer:exoplayer-hls:${exoPlayer}",
+            exoPlayerUI             : "com.google.android.exoplayer:exoplayer-ui:${exoPlayer}",
     ]
 
     testSupportDependencies = [
@@ -78,6 +86,6 @@ ext {
     ]
 
     testLibraries = [
-            junit                    : "junit:junit:4.12",
+            junit: "junit:junit:4.12",
     ]
 }
